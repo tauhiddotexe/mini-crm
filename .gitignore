@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+tsconfig.tsbuildinfo
+
+# Documentation (local only)
+/docs/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+
+# Type checking
+.mypy_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Deployment
+.vercel
+.vercelignore
+
+# Security scan results
+strix_runs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
