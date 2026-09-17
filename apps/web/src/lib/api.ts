@@ -1,6 +1,6 @@
 import type { Ticket, TicketListItem, TicketDetail, TicketCreate, TicketUpdate } from "@/types/ticket";
 
-const BASE = "/api";
+const BASE = import.meta.env.VITE_API_BASE ?? "/api";
 
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${url}`, {
