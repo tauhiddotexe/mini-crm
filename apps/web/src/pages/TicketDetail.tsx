@@ -129,12 +129,12 @@ export function TicketDetail() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="p-2 rounded-xl bg-primary/10">
+                <div className="p-2 rounded-xl bg-primary/10 shrink-0">
                   <Mail className="h-4 w-4 text-primary" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Email</p>
-                  <p className="text-sm font-medium mt-0.5">{ticket.customer_email}</p>
+                  <p className="text-sm font-medium mt-0.5 break-all">{ticket.customer_email}</p>
                 </div>
               </div>
             </div>

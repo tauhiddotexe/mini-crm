@@ -10,7 +10,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      <Sidebar />
+      <Sidebar className="hidden md:flex" />
 
       <AnimatePresence>
         {sidebarOpen && (
@@ -30,9 +30,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed inset-y-0 left-0 w-72 bg-card z-50 shadow-xl"
+              className="fixed inset-y-0 left-0 w-72 bg-card z-50 shadow-xl border-r border-border"
             >
-              <Sidebar />
+              <Sidebar className="w-full h-full border-r-0" onNavItemClick={() => setSidebarOpen(false)} />
             </motion.div>
           </motion.div>
         )}
@@ -40,13 +40,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-1 flex-col overflow-hidden">
         <header className="flex h-16 items-center justify-between border-b border-border bg-card/80 backdrop-blur-xl px-4 md:px-6 sticky top-0 z-30">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               className="md:hidden p-2 rounded-lg hover:bg-accent transition-colors"
               onClick={() => setSidebarOpen(true)}
+              aria-label="Open sidebar menu"
             >
               <Menu className="h-5 w-5" />
             </button>
+            <span className="text-sm font-semibold md:hidden">Support CRM</span>
           </div>
 
           <div className="flex items-center gap-2">

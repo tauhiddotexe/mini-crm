@@ -137,16 +137,16 @@ export function Dashboard() {
       <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
+        className="flex items-center justify-between gap-2"
       >
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">Overview of your support tickets</p>
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">Overview of your support tickets</p>
         </div>
         <Link to="/tickets">
-          <Button variant="ghost" size="sm" className="gap-1.5">
+          <Button variant="ghost" size="sm" className="gap-1 sm:gap-1.5 text-xs sm:text-sm px-2 sm:px-3">
             View all
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </Button>
         </Link>
       </motion.div>

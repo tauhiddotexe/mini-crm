@@ -150,21 +150,21 @@ export function CreateTicket() {
                 />
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <Button type="submit" disabled={loading} className="min-w-[140px]">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <Button type="submit" disabled={loading} className="w-full sm:w-auto min-w-[140px]">
                   {loading ? (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center justify-center gap-2">
                       <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
                       Creating...
                     </span>
                   ) : (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center justify-center gap-2">
                       <Send className="h-4 w-4" />
                       Create Ticket
                     </span>
                   )}
                 </Button>
-                <Button type="button" variant="outline" onClick={() => navigate("/tickets")}>
+                <Button type="button" variant="outline" onClick={() => navigate("/tickets")} className="w-full sm:w-auto">
                   Cancel
                 </Button>
               </div>

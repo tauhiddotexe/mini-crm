@@ -95,12 +95,12 @@ export function TicketList() {
           )}
         </div>
 
-        <div className="flex gap-1 rounded-lg bg-muted p-1 w-fit">
+        <div className="flex gap-1 rounded-lg bg-muted p-1 max-w-full overflow-x-auto scrollbar-none shrink-0">
           {STATUS_TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-150 ${
+              className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap transition-all duration-150 ${
                 activeTab === tab
                   ? "bg-card text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
@@ -159,21 +159,22 @@ export function TicketList() {
                       variants={item}
                       className="border-b border-border last:border-0 hover:bg-accent/50 transition-colors duration-150"
                     >
-                      <td className="py-3.5 px-4">
+                      <td className="py-3.5 px-3 sm:px-4">
                         <Link
                           to={`/tickets/${ticket.ticket_id}`}
-                          className="font-mono text-sm text-primary hover:underline font-medium"
+                          className="font-mono text-xs sm:text-sm text-primary hover:underline font-medium"
                         >
                           {ticket.ticket_id}
                         </Link>
                       </td>
-                      <td className="py-3.5 px-4">
-                        <span className="text-sm font-medium">{ticket.customer_name}</span>
+                      <td className="py-3.5 px-3 sm:px-4 min-w-[120px]">
+                        <span className="text-xs sm:text-sm font-medium block">{ticket.customer_name}</span>
+                        <span className="text-[11px] text-muted-foreground truncate max-w-[160px] block sm:hidden mt-0.5">{ticket.subject}</span>
                       </td>
                       <td className="py-3.5 px-4 hidden sm:table-cell">
                         <span className="text-sm text-muted-foreground truncate max-w-[200px] block">{ticket.subject}</span>
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td className="py-3.5 px-3 sm:px-4">
                         <StatusBadge status={ticket.status} />
                       </td>
                       <td className="py-3.5 px-4 hidden md:table-cell">

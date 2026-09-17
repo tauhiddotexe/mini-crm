@@ -9,12 +9,17 @@ const links = [
   { to: "/tickets/new", label: "New Ticket", icon: Plus },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  className?: string;
+  onNavItemClick?: () => void;
+}
+
+export function Sidebar({ className, onNavItemClick }: SidebarProps) {
   const location = useLocation();
 
   return (
-    <aside className="hidden md:flex w-64 flex-col border-r border-border bg-card">
-      <div className="flex h-16 items-center gap-3 border-b border-border px-5">
+    <aside className={cn("flex w-64 flex-col border-r border-border bg-card", className)}>
+      <div className="flex h-16 items-center gap-3 border-b border-border px-5 shrink-0">
         <div className="flex items-center justify-center h-9 w-9 rounded-xl bg-primary shadow-sm shadow-primary/20">
           <Headphones className="h-5 w-5 text-primary-foreground" />
         </div>
@@ -24,7 +29,7 @@ export function Sidebar() {
         </div>
       </div>
 
-      <nav className="flex-1 space-y-1 p-3">
+      <nav className="flex-1 space-y-1 p-3 overflow-y-auto">
         <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider px-3 mb-2">
           Navigation
         </p>
@@ -35,6 +40,7 @@ export function Sidebar() {
             <Link
               key={link.to}
               to={link.to}
+              onClick={onNavItemClick}
               className={cn(
                 "relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150",
                 active
