@@ -35,9 +35,10 @@ app.add_middleware(
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
+    is_debug = os.getenv("DEBUG")
     return JSONResponse(
         status_code=500,
-        content={"detail": str(exc), "type": type(exc).__name__},
+        content={"detail": str(exc) if is_debug else "Internal server error"},
     )
 
 
