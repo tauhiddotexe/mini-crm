@@ -9,15 +9,22 @@ load_dotenv()
 
 app = FastAPI(title="Support CRM API", version="1.0.0")
 
-DEFAULT_CORS_ORIGINS = ",".join([
+DEFAULT_CORS_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:5174",
     "https://mini-crm-spsy.vercel.app",
-])
+]
+
+env_origins = [
+    o.strip()
+    for o in os.getenv("CORS_ORIGINS", "").split(",")
+    if o.strip()
+]
+allowed_origins = list(dict.fromkeys(DEFAULT_CORS_ORIGINS + env_origins))
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("CORS_ORIGINS", DEFAULT_CORS_ORIGINS).split(","),
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
