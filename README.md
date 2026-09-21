@@ -4,7 +4,7 @@
 
 ### Customer support ticketing system with email ingestion
 
-A full-stack application for managing support tickets — create manually or automatically from incoming emails, track status, add internal notes, and monitor performance through a real-time dashboard.
+A full-stack application for managing support tickets -- create manually or automatically from incoming emails, track status, add internal notes, and monitor performance through a real-time dashboard.
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript)](https://www.typescriptlang.org/)
@@ -17,18 +17,34 @@ A full-stack application for managing support tickets — create manually or aut
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="apps/web/src/assets/pics/c1.png" alt="Dashboard" width="100%">
+</p>
+
+<p align="center">
+  <img src="apps/web/src/assets/pics/c2.png" alt="Ticket List" width="48%">
+  &nbsp;&nbsp;
+  <img src="apps/web/src/assets/pics/c3.png" alt="Create Ticket" width="48%">
+</p>
+
+---
+
 ## Overview
 
 Support CRM is a lightweight, production-ready ticketing system built for support teams. It combines a modern React frontend with a FastAPI backend and PostgreSQL database, plus a standalone email worker that polls IMAP inboxes to automatically create tickets from structured support emails.
 
-**Core capabilities:**
+### Core Capabilities
 
-- **Ticket lifecycle management** — Create, update, and track tickets through Open → In Progress → Closed states
-- **Email-to-ticket ingestion** — Automatically parse incoming support emails and create tickets via IMAP polling
-- **Full-text search** — Search across ticket ID, customer name, email, subject, and description
-- **Internal notes** — Add threaded comments to tickets for team collaboration
-- **Dashboard analytics** — KPI cards, pie chart breakdown by status, and recent ticket activity
-- **Responsive design** — Works seamlessly across desktop and mobile devices
+| Feature | Description |
+|---------|-------------|
+| Ticket Lifecycle | Create, update, and track tickets through Open, In Progress, and Closed states |
+| Email Ingestion | Automatically parse incoming support emails and create tickets via IMAP polling |
+| Full-Text Search | Search across ticket ID, customer name, email, subject, and description |
+| Internal Notes | Add threaded comments to tickets for team collaboration |
+| Dashboard Analytics | KPI cards, pie chart breakdown by status, and recent ticket activity |
+| Responsive Design | Works seamlessly across desktop and mobile devices |
 
 ## Tech Stack
 
@@ -45,53 +61,57 @@ Support CRM is a lightweight, production-ready ticketing system built for suppor
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    React Frontend                        │
-│   Dashboard  │  Ticket List  │  Detail  │  Create Form  │
-└──────────────────────────┬──────────────────────────────┘
-                           │ HTTP/JSON
-┌──────────────────────────┴──────────────────────────────┐
-│                    FastAPI Backend                        │
-│   Routes → Services → Pydantic Schemas → psycopg2       │
-└──────────────────────────┬──────────────────────────────┘
-                           │ SQL
-┌──────────────────────────┴──────────────────────────────┐
-│                  PostgreSQL (Supabase)                    │
-│              tickets table  ←  notes table               │
-└─────────────────────────────────────────────────────────┘
++-----------------------------------------------------------+
+|                    React Frontend                          |
+|   Dashboard  |  Ticket List  |  Detail  |  Create Form    |
++-----------------------------+-----------------------------+
+                              | HTTP/JSON
++-----------------------------v-----------------------------+
+|                    FastAPI Backend                          |
+|   Routes -> Services -> Pydantic Schemas -> psycopg2      |
++-----------------------------+-----------------------------+
+                              | SQL
++-----------------------------v-----------------------------+
+|                  PostgreSQL (Supabase)                      |
+|              tickets table  <-  notes table                 |
++-----------------------------------------------------------+
 
-┌─────────────────────────────────────────────────────────┐
-│                   Email Worker                            │
-│   IMAP Mailbox → Regex Parser → POST /api/tickets        │
-└─────────────────────────────────────────────────────────┘
++-----------------------------------------------------------+
+|                   Email Worker                              |
+|   IMAP Mailbox -> Regex Parser -> POST /api/tickets        |
++-----------------------------------------------------------+
 ```
 
 ## Project Structure
 
 ```
 mini-crm/
-├── apps/
-│   ├── web/                      # React frontend (Vite + TypeScript)
-│   │   └── src/
-│   │       ├── pages/            # Dashboard, TicketList, TicketDetail, CreateTicket
-│   │       ├── components/       # Button, Card, Input, Badge, Toast, Skeleton
-│   │       ├── lib/              # API client, utilities
-│   │       └── types/            # TypeScript interfaces
-│   └── api/                      # FastAPI backend
-│       └── app/
-│           ├── main.py           # App entry, CORS, exception handler
-│           ├── database.py       # PostgreSQL connection (pooler + fallback)
-│           ├── schemas.py        # Pydantic request/response models
-│           ├── routes/           # HTTP endpoint definitions
-│           └── services/         # Business logic and SQL queries
-├── email_worker/                 # Standalone email polling service
-│   ├── main.py                   # Worker loop (60s interval)
-│   ├── mailbox.py                # IMAP connection and email fetch
-│   ├── parser.py                 # Structured email body parser
-│   └── client.py                 # HTTP client for API calls
-├── docs/                         # Architecture, security, and data docs
-└── .env.example                  # Environment variables template
+|-- apps/
+|   |-- web/                        # React frontend (Vite + TypeScript)
+|   |   |-- src/
+|   |       |-- pages/              # Dashboard, TicketList, TicketDetail, CreateTicket
+|   |       |-- components/         # Button, Card, Input, Badge, Toast, Skeleton
+|   |       |-- lib/                # API client, utilities
+|   |       |-- types/              # TypeScript interfaces
+|   |       |-- assets/pics/        # Application screenshots
+|   |       +-- assets/illustrations/  # Custom SVG illustrations
+|   +-- api/                        # FastAPI backend
+|       +-- app/
+|           |-- main.py             # App entry, CORS, exception handler
+|           |-- database.py         # PostgreSQL connection (pooler + fallback)
+|           |-- schemas.py          # Pydantic request/response models
+|           |-- routes/             # HTTP endpoint definitions
+|           +-- services/           # Business logic and SQL queries
+|-- email_worker/                   # Standalone email polling service
+|   |-- main.py                     # Worker loop (60s interval)
+|   |-- mailbox.py                  # IMAP connection and email fetch
+|   |-- parser.py                   # Structured email body parser
+|   +-- client.py                   # HTTP client for API calls
+|-- docs/                           # Architecture, security, and data docs
++-- .env.example                    # Environment variables template
 ```
+
+---
 
 ## Getting Started
 
@@ -143,13 +163,16 @@ python main.py
 
 Polls the configured IMAP mailbox every 60 seconds.
 
+---
+
 ## API Reference
 
 ### Health Check
 
 ```
 GET /api/health
-→ 200 { "status": "healthy" }
+
+-> 200 { "status": "healthy" }
 ```
 
 ### Create Ticket
@@ -165,7 +188,7 @@ Content-Type: application/json
   "description": "Cannot access my account after password reset"
 }
 
-→ 201 { "ticket_id": "TKT-A1B2C3D4", "created_at": "..." }
+-> 201 { "ticket_id": "TKT-A1B2C3D4", "created_at": "..." }
 ```
 
 ### List Tickets
@@ -175,7 +198,7 @@ GET /api/tickets
 GET /api/tickets?status=Open
 GET /api/tickets?search=john
 
-→ 200 [
+-> 200 [
     {
       "ticket_id": "TKT-A1B2C3D4",
       "customer_name": "John Doe",
@@ -191,7 +214,7 @@ GET /api/tickets?search=john
 ```
 GET /api/tickets/{ticket_id}
 
-→ 200 {
+-> 200 {
     "ticket_id": "TKT-A1B2C3D4",
     "customer_name": "John Doe",
     "customer_email": "john@example.com",
@@ -215,8 +238,10 @@ Content-Type: application/json
   "note_text": "Investigating the issue"
 }
 
-→ 200 { "success": true, "updated_at": "..." }
+-> 200 { "success": true, "updated_at": "..." }
 ```
+
+---
 
 ## Email Ingestion
 
@@ -262,14 +287,16 @@ CREATE TABLE notes (
 - **Database-level CHECK constraint** enforces valid status values at the storage layer
 - **Timezone-aware timestamps** (`TIMESTAMPTZ`) for consistent time handling across regions
 
+---
+
 ## Security
 
-- **Parameterized queries** — All SQL uses `%s` placeholders; no string interpolation in queries
-- **Input validation** — Pydantic schemas enforce max lengths (name: 255, subject: 500, description: 10,000, notes: 5,000)
-- **Email validation** — Pydantic `EmailStr` validates customer email format
-- **CORS restriction** — Configured to allow only the frontend origin
-- **Error handling** — Global exception handler suppresses stack traces in production
-- **Environment-based config** — All credentials and secrets loaded from environment variables
+- **Parameterized queries** -- All SQL uses `%s` placeholders; no string interpolation in queries
+- **Input validation** -- Pydantic schemas enforce max lengths (name: 255, subject: 500, description: 10,000, notes: 5,000)
+- **Email validation** -- Pydantic `EmailStr` validates customer email format
+- **CORS restriction** -- Configured to allow only the frontend origin
+- **Error handling** -- Global exception handler suppresses stack traces in production
+- **Environment-based config** -- All credentials and secrets loaded from environment variables
 
 ## Deployment
 
@@ -284,7 +311,7 @@ CREATE TABLE notes (
 
 The frontend uses a custom design system built on Tailwind CSS with CSS custom properties (HSL tokens):
 
-- **Primary:** Teal `#21B6A8` — used for interactive elements and accents
+- **Primary:** Teal `#21B6A8` -- used for interactive elements and accents
 - **Typography:** Inter (body) + JetBrains Mono (code and ticket IDs)
 - **Components:** Button (4 variants), Card, Input, Select, Badge, StatusBadge, Toast, Skeleton, EmptyState
 - **Motion:** Framer Motion spring physics with custom easing curves
